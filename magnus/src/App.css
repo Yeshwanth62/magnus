@@ -1,10 +1,7 @@
 body {
-  display: flex;
+  margin: 0;
   background: linear-gradient(to top, black,rgb(62, 42, 4)); /* matches poster background */
   font-family: system-ui, sans-serif;
-  margin: 0 auto;
-  align-items: center;
-  justify-content: center;
 }
 
 .page {
