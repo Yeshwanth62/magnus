@@ -1,49 +1,88 @@
-body {
-  display: flex;
-  flex-direction: column; 
-  align-items: center;
-  background: linear-gradient(to top, black,rgb(62, 42, 4)); /* matches poster background */
-  font-family: system-ui, sans-serif;
+/* Reset */
+* {
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  width: 100%;
 }
 
+body{
+  background: linear-gradient(to top, black, rgb(66, 45, 6));
+}
+
+/* Poster container */
 .poster {
+  position: relative;
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 60px 20px;
+  margin: 40px 0;
+
+  /* Dynamic fall animation on page load */
+  animation: fallDynamic 1s ease-out forwards;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* hover smoothness */
 }
 
+/* Staggered delay for dynamic fall */
+.poster:nth-child(1) { animation-delay: 0s; }
+.poster:nth-child(2) { animation-delay: 0.2s; }
+.poster:nth-child(3) { animation-delay: 0.4s; }
+
+/* Poster image */
 .poster img {
-  width: 100%;
-  max-width: 900px;
+  width: 80%;
+  max-width: 1000px;
   height: auto;
-  border-radius: 16px;
+  display: block;
+  border-radius: 20px;
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* smooth hover */
 }
 
+/* Hover effect on poster */
+.poster:hover img {
+  transform: scale(1.03); /* subtle zoom */
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35), 0 0 20px rgb(244, 240, 240); /* glowing shadow */
+}
+
+/* Buttons overlay */
 .register {
-  padding: 100px 20px;
+  position: absolute;
+  top: 80%; /* slightly below center */
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  justify-content: center;
-
+  gap: 24px;
 }
 
+/* Buttons styling */
 .register button {
-  background: #f37021;
-  color: black;
-  font-size: 1.6rem;
-  font-weight: 800;
-  padding: 18px 56px;
+  padding: 14px 28px;
+  font-size: 16px;
+  font-family: 'Fredoka One', cursive;
+  background: #000;
+  color: #fff;
   border: none;
-  border-radius: 999px;
+  border-radius: 8px;
   cursor: pointer;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+
+  /* Hover smooth animation */
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Buttons hover effect */
+.register button:hover {
+  transform: scale(1.12);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Dynamic fall animation keyframes */
+@keyframes fallDynamic {
+  0% { opacity: 0; transform: translateY(-150px) scale(0.9) rotate(-5deg); }
+  60% { opacity: 1; transform: translateY(20px) scale(1.02) rotate(2deg); }
+  80% { transform: translateY(-10px) scale(0.98) rotate(-1deg); }
+  100% { transform: translateY(0) scale(1) rotate(0deg); }
 }
