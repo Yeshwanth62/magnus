@@ -7,20 +7,20 @@ export default function App() {
   return (
     <div className="page">
       <section className="poster">
-        <img src="/public/images/magnus-hero.jpeg" alt="Magnus 2.0" />
+        <img src="/images/magnus-hero.jpeg" alt="Magnus 2.0" />
       </section>
 
       <section className="poster">
-        <img src="/public/images/about-mims.jpeg" alt="About MIMS" />
+        <img src="/images/about-mims.jpeg" alt="About MIMS" />
       </section>
 
       <section className="poster">
-        <img src="/public/images/about-magnus.jpeg" alt="About Magnus" />
+        <img src="/images/about-magnus.jpeg" alt="About Magnus" />
       </section>
 
       <section className="register">
         <button
-        onClick={() => window.open("/public/pdf/MIMS-Magnus-2.0.pdf", "_blank")}
+        onClick={() => window.open("/pdf/MIMS-Magnus-2.0.pdf", "_blank")}
   >
         MIMS MAGNUS 2.0 BROCHURE
         </button>
