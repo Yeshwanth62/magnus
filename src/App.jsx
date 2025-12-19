@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import Home from './Home.jsx'
 import './App.css'
 
 export default function App() {
@@ -9,17 +8,7 @@ export default function App() {
     <div className="page">
       <section className="poster">
         <img src="/images/magnus-hero.jpeg" alt="Magnus 2.0" />
-      </section>
-
-      <section className="poster">
-        <img src="/images/about-mims.jpeg" alt="About MIMS" />
-      </section>
-
-      <section className="poster">
-        <img src="/images/about-magnus.jpeg" alt="About Magnus" />
-      </section>
-
-      <section className="register">
+        <section className="register">
         <button
         onClick={() => window.open("/pdf/MIMS-Magnus-2.0.pdf", "_blank")}
   >
@@ -33,6 +22,17 @@ export default function App() {
 
       </section>
 
+      </section>
+
+      <section className="poster">
+        <img src="/images/about-mims.jpeg" alt="About MIMS" />
+      </section>
+
+      <section className="poster">
+        <img src="/images/about-magnus.jpeg" alt="About Magnus" />
+      </section>
+
+      
     
     </div>
   );
