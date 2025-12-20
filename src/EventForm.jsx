@@ -11,14 +11,12 @@ const EventForm = () => {
   // State management
   const [loading, setLoading] = useState(false);
   const [fileName, setFileName] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false); // NEW: Track submission
+  const [userData, setUserData] = useState(null); // NEW: Store data for ticket
 
-  // Ember Icons for the background (Matching your RegisterPage)
   const emberIcons = ["🏀", "⚽", "🎸", "🎤", "🧪", "🎨", "🎭", "🏸", "📖", "🩺"];
-
-  // Data passed from the selection page
   const { eventTitle, totalPrice } = location.state || { eventTitle: "Event", totalPrice: 0 };
 
-  // Mapping QR codes
   const qrCodes = {
     "cultural": "/qr-cultural.png",
     "literary": "/qr-literary.png",
@@ -43,6 +41,9 @@ const EventForm = () => {
     formData.append("Event_Category", eventTitle);
     formData.append("Total_Amount", totalPrice);
 
+    // Capture data for the ticket before sending
+    const dataForTicket = Object.fromEntries(formData.entries());
+
     try {
       const scriptURL = 'https://script.google.com/macros/s/AKfycbwGqTHoUoega_GuIeLIFVYVsJhqhHT3tyId0bjTPm5tcjtR3HHci7FFgRT-SDB1xHap/exec'; 
       
@@ -52,8 +53,10 @@ const EventForm = () => {
         mode: 'no-cors' 
       });
       
-      alert(`Registration Successful! You have registered for ${eventTitle}.`);
-      navigate('/register'); 
+      // Instead of an alert, show the ticket
+      setUserData(dataForTicket);
+      setIsSubmitted(true);
+      window.scrollTo(0, 0); // Scroll to top to see the ticket
     } catch (error) {
       console.error('Submission Error:', error);
       alert("Something went wrong. Please check your internet.");
@@ -62,9 +65,72 @@ const EventForm = () => {
     }
   };
 
+  // --- TICKET VIEW RENDER ---
+  if (isSubmitted && userData) {
+    return (
+      <div className="register-container form-page-layout">
+        <div className="fire-background">
+            <div className="fire-aura"></div>
+            <div className="fire-core"></div>
+            <div className="fire-sparks">
+            {[...Array(40)].map((_, i) => (
+                <span key={i} className="event-ember" style={{ 
+                    left: `${Math.random() * 100}%`, 
+                    fontSize: `${Math.random() * (10 - 4) + 4}px`
+                }}>
+                {emberIcons[i % emberIcons.length]}
+                </span>
+            ))}
+            </div>
+        </div>
+
+        <div className="form-content-area">
+          <div className="ticket-card">
+            <div className="ticket-header">
+              <h2 className="form-title highlight">REGISTRATION CONFIRMED</h2>
+              <div className="ticket-badge">MAGNUS 2.0 ENTRY PASS</div>
+            </div>
+
+            <div className="ticket-body">
+              <div className="ticket-event-section">
+                <label>REGISTERED FOR</label>
+                <h3>{userData.Event_Category}</h3>
+              </div>
+
+              <div className="ticket-grid">
+                <div className="t-item"><span>NAME</span><p>{userData.Full_Name}</p></div>
+                <div className="t-item"><span>REG NO.</span><p>{userData.Reg_No}</p></div>
+                <div className="t-item"><span>COLLEGE</span><p>{userData.College}</p></div>
+                <div className="t-item"><span>AMOUNT PAID</span><p>₹{userData.Total_Amount}</p></div>
+              </div>
+
+              <div className="utr-box">
+                <span>TRANSACTION ID / UTR</span>
+                <p>{userData.Transaction_ID}</p>
+              </div>
+
+              <div className="verification-status">
+                <div className="status-dot pulse"></div>
+                <span>STATUS: PENDING VERIFICATION</span>
+              </div>
+            </div>
+
+            <div className="ticket-footer">
+              <p className="ticket-note">Please take a screenshot of this ticket for entry at the venue.</p>
+              <div className="ticket-btns">
+                <button className="final-submit-btn" onClick={() => window.print()}>SAVE AS PDF</button>
+                <button className="back-btn" style={{marginTop: '10px'}} onClick={() => navigate('/')}>BACK TO HOME</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // --- ORIGINAL FORM VIEW RENDER ---
   return (
     <div className="register-container form-page-layout">
-      {/* FLOATING EMBER BACKGROUND */}
       <div className="fire-background">
         <div className="fire-aura"></div>
         <div className="fire-core"></div>
@@ -107,7 +173,7 @@ const EventForm = () => {
               <div className="input-group">
                 <label>Year of Study</label>
                 <select name="Year" required className="dark-select">
-                  <option value="" disabled selected>Select Year</option>
+                  <option value="" disabled defaultValue>Select Year</option>
                   <option value="1st Year">1st Year</option>
                   <option value="2nd Year">2nd Year</option>
                   <option value="3rd Year">3rd Year</option>
