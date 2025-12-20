@@ -1,88 +1,279 @@
-/* Reset */
+/* --- RESET & GLOBAL --- */
 * {
   margin: 0 auto;
   padding: 0;
   box-sizing: border-box;
 }
 
+body {
+  background: #000;
+  overflow-x: hidden;
+  font-family: 'Inter', sans-serif;
+}
+
 .page {
   width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0 150px 0;
+  position: relative;
+  z-index: 1;
 }
 
-body{
-  background: linear-gradient(to top, black, rgb(66, 45, 6));
+/* --- FIRE PIT SYSTEM --- */
+.fire-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: #000;
+  overflow: hidden;
 }
 
-/* Poster container */
+.fire-aura {
+  position: absolute;
+  bottom: -150px;
+  width: 100%;
+  height: 600px;
+  background: linear-gradient(to top, 
+    rgba(139, 69, 19, 0.6) 0%, 
+    rgba(66, 45, 6, 0.3) 60%, 
+    transparent 100%);
+  filter: blur(40px);
+}
+
+.fire-core {
+  position: absolute;
+  bottom: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140%;
+  height: 380px;
+  background: radial-gradient(ellipse at center, 
+    rgba(255, 120, 0, 0.85) 0%, 
+    rgba(204, 82, 0, 0.4) 50%, 
+    transparent 80%);
+  filter: blur(60px);
+  animation: fireSurge 4s infinite alternate ease-in-out;
+}
+
+/* --- ABSTRACT MICRO-EMBERS --- */
+.event-ember {
+  position: absolute;
+  bottom: -50px;
+  opacity: 0;
+  filter: grayscale(0.2) sepia(1) saturate(5) hue-rotate(-15deg) brightness(1.4) blur(1px);
+  text-shadow: 0 0 5px #ff4500, 0 0 10px #cc5200;
+  animation: riseAndDrift 12s linear infinite;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+@keyframes fireSurge {
+  0% { transform: translateX(-50%) scaleY(1); opacity: 0.7; }
+  100% { transform: translateX(-50%) scaleY(1.5); opacity: 1; }
+}
+
+@keyframes riseAndDrift {
+  0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
+  10% { opacity: 1; }
+  80% { opacity: 0.6; }
+  100% { transform: translateY(-130vh) translateX(120px) rotate(720deg); opacity: 0; }
+}
+
+/* --- INTERACTIVE POSTERS --- */
 .poster {
   position: relative;
-  width: 100%;
+  width: 90%;
+  max-width: 1000px;
   display: flex;
   justify-content: center;
-  margin: 40px 0;
-
-  /* Dynamic fall animation on page load */
+  margin: 50px auto;
   animation: fallDynamic 1s ease-out forwards;
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* hover smoothness */
-}
-
-/* Staggered delay for dynamic fall */
-.poster:nth-child(1) { animation-delay: 0s; }
-.poster:nth-child(2) { animation-delay: 0.2s; }
-.poster:nth-child(3) { animation-delay: 0.4s; }
-
-/* Poster image */
-.poster img {
-  width: 80%;
-  max-width: 1000px;
-  height: auto;
-  display: block;
+  opacity: 0;
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  cursor: pointer;
+  overflow: hidden; /* For the shimmer effect */
   border-radius: 20px;
-
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* smooth hover */
 }
 
-/* Hover effect on poster */
+.poster img {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  filter: brightness(0.85); /* Slightly muted to look good in the dark */
+  box-shadow: 0 20px 60px rgba(0,0,0,1);
+  transition: all 0.5s ease;
+}
+
+.poster:hover {
+  transform: translateY(-15px) scale(1.02); /* Dynamic Lift */
+  z-index: 20;
+}
+
 .poster:hover img {
-  transform: scale(1.03); /* subtle zoom */
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35), 0 0 20px rgb(244, 240, 240); /* glowing shadow */
+  filter: brightness(1.15); /* Lights up from fire intensity */
+  /* Massive Amber Glow behind the image */
+  box-shadow: 0 30px 100px rgba(255, 102, 0, 0.45), 
+              0 10px 40px rgba(204, 82, 0, 0.3);
 }
 
-/* Buttons overlay */
+/* Light Shine Shimmer effect */
+.poster::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.08),
+    transparent
+  );
+  transform: skewX(-25deg);
+  transition: 0.7s;
+}
+
+.poster:hover::after {
+  left: 125%;
+}
+
+/* --- DARK NEON BUTTONS --- */
 .register {
   position: absolute;
-  top: 80%; /* slightly below center */
+  top: 85%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
-  gap: 24px;
+  gap: 25px;
+  z-index: 10;
 }
 
-/* Buttons styling */
-.register button {
+.neon-button {
   padding: 14px 28px;
-  font-size: 16px;
+  font-size: 14px;
   font-family: 'Fredoka One', cursive;
-  background: #000;
-  color: #fff;
-  border: none;
+  background: rgba(0, 0, 0, 0.95);
+  color: #f1edeb; 
+  border: 2px solid #cc5200;
   border-radius: 8px;
   cursor: pointer;
-
-  /* Hover smooth animation */
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  box-shadow: 0 0 10px #cc5200, inset 0 0 5px #cc5200;
+  text-shadow: 0 0 4px #cc5200;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* Buttons hover effect */
-.register button:hover {
-  transform: scale(1.12);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+.neon-button:hover {
+  background: #000;
+  color: #fff;
+  transform: scale(1.1) translateY(-8px);
+  box-shadow: 0 0 30px #f4c9ac, 0 0 60px rgba(225, 176, 144, 0.4);
 }
 
-/* Dynamic fall animation keyframes */
 @keyframes fallDynamic {
-  0% { opacity: 0; transform: translateY(-150px) scale(0.9) rotate(-5deg); }
-  60% { opacity: 1; transform: translateY(20px) scale(1.02) rotate(2deg); }
-  80% { transform: translateY(-10px) scale(0.98) rotate(-1deg); }
-  100% { transform: translateY(0) scale(1) rotate(0deg); }
+  0% { opacity: 0; transform: translateY(-30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* --- MOBILE STACKING --- */
+@media (max-width: 768px) {
+  .register {
+    flex-direction: column;
+    width: 85%;
+    top: 85%;
+    gap: 15px;
+  }
+  .neon-button {
+    width: 100%;
+    font-size: 13px;
+    padding: 14px;
+  }
+  .fire-core { height: 250px; }
+  .poster:hover { transform: translateY(-5px) scale(1.01); }
+}
+
+/* Ensure the poster section can contain absolute elements */
+.relative-poster {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Container for just the icons */
+.icon-overlay-container {
+  position: absolute;
+  top: 30%; /* Adjust this to move the row into your image gap */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: row; /* Horizontal alignment */
+  gap: 100px; /* Space between icons */
+  z-index: 10;
+}
+
+/* Circular glowing button style */
+.social-glow-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  border-radius: 30px;
+}
+
+.social-glow-icon img {
+  width: 300px;
+  height: 300px;
+  object-fit: contain;
+  border-radius: 40px;
+}
+
+/* Hover effects with specific colors */
+.social-glow-icon:hover {
+  transform: scale(1.15);
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.social-glow-icon.ig:hover {
+  box-shadow: 0 0 30px rgba(225, 48, 108, 0.8); /* IG Pink Glow */
+}
+
+.social-glow-icon.mail:hover {
+  box-shadow: 0 0 30px rgba(234, 67, 53, 0.8); /* Gmail Red Glow */
+}
+
+.simple-footer {
+  padding: 40px;
+  background: #000;
+  text-align: center;
+}
+
+/* Mobile Fixes */
+@media (max-width: 768px) {
+  .icon-overlay-container {
+    top: 30%;
+    gap: 25px;
+  }
+  .social-glow-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 40px;
+  }
+  .social-glow-icon img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 40px;
+  }
 }
