@@ -81,7 +81,6 @@ function Home() {
         </div>
         <div className="contact-overlay-container">
         <div className="contacts-overlay-card">
-            <p className="contacts-label">EVENT COORDINATORS</p>
             <div className="contacts-list">
               <a href="tel:9886980171" className="contact-item">
                 <span className="name">Shivesh:</span> <span className="number">98869 80171</span>
