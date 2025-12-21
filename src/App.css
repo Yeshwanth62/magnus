@@ -287,14 +287,14 @@ body {
 @media (max-width: 480px) {
   .contact-overlay-container {
     left: 50%; /* Center it perfectly on mobile */
-    bottom: 15%; /* Lift it slightly to avoid overlap with bottom edges */
-    width: 95%; /* Use more screen width on small devices */
+    bottom: 25%; /* Lift it slightly to avoid overlap with bottom edges */
+    width: 75%; /* Use more screen width on small devices */
   }
 
   .contacts-overlay-card {
-    padding: 15px; /* Reduce padding to save vertical space */
+    padding: 10px; /* Reduce padding to save vertical space */
     min-width: unset; /* Allow card to shrink if screen is very narrow */
-    width: 100%;
+    width: 80%;
   }
 
   .contacts-label {
