@@ -90,10 +90,10 @@ function Home() {
                 <span className="name">Darshan G:</span> <span className="number">831-0840355</span>  
               </a>
               <a href="tel:8431467547" className="contact-item">
-                <span className="name">Amith</span> <span className="number">8431467547</span>
+                <span className="name">Amith:</span> <span className="number">8431467547</span>
               </a>
               <a href="tel:7090891467" className="contact-item">
-                <span className="name">Darshan</span> <span className="number">7090891467</span>
+                <span className="name">Darshan:</span> <span className="number">7090891467</span>
               </a>
 
 

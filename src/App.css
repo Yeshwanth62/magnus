@@ -292,7 +292,7 @@ body {
     transform: translateX(-50%) !important;
     
     /* Adjust this percentage to move the card up or down on the poster */
-    top: 65% !important; 
+    top: 69% !important; 
     bottom: auto !important;
     
     width: 85%;
@@ -301,9 +301,9 @@ body {
   }
 
   .contacts-overlay-card {
-    padding: 15px 10px;
+    padding: 10px 10px;
     min-width: unset; 
-    width: 100%;
+    width: 800%;
     /* Ensures the glass card doesn't look too bulky on small screens */
     background: rgba(0, 0, 0, 0.75); 
   }
