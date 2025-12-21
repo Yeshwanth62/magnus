@@ -44,7 +44,7 @@ const EventForm = () => {
     formData.append("Registered_Events", eventNames);
 
     try {
-      const scriptURL = 'YOUR_GOOGLE_SHEET_SCRIPT_URL'; 
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbzHs_ubhi9NhLNQz4NnUfEzUSEFwoF2ZuE0gEsoMZYZd8crdarmH4HjXKQ3qXajHjoG/exec'; 
       await fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' });
       
       setUserData(Object.fromEntries(formData.entries()));
