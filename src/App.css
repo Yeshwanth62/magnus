@@ -221,6 +221,97 @@ body {
   z-index: 10;
 }
 
+.contact-overlay-container {
+  position: absolute;
+  bottom: 25%; /* Positioned lower on the poster */
+  transform: translateX(-50%);
+  width: 90%;
+  left :55%;
+  max-width: 400px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.contacts-overlay-card {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.6); /* Darker glass for readability */
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 102, 0, 0.3); /* Subtle orange border */
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  min-width: 280px;
+}
+
+.contacts-label {
+  color: #ff6600;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  font-weight: 800;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.contacts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contact-item {
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  font-size: 1.1rem;
+  transition: transform 0.2s ease;
+}
+
+.contact-item .name {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.contact-item .number {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.contact-item:hover {
+  transform: scale(1.05);
+}
+
+.contact-item:hover .number {
+  color: #ff6600;
+}
+
+@media (max-width: 480px) {
+  .contact-overlay-container {
+    left: 50%; /* Center it perfectly on mobile */
+    bottom: 15%; /* Lift it slightly to avoid overlap with bottom edges */
+    width: 95%; /* Use more screen width on small devices */
+  }
+
+  .contacts-overlay-card {
+    padding: 15px; /* Reduce padding to save vertical space */
+    min-width: unset; /* Allow card to shrink if screen is very narrow */
+    width: 100%;
+  }
+
+  .contacts-label {
+    font-size: 0.65rem; /* Slightly smaller label */
+    margin-bottom: 8px;
+  }
+
+  .contact-item {
+    font-size: 1rem; /* Adjust font for better mobile fit */
+    flex-wrap: wrap; /* Allows number to wrap if names are long */
+  }
+
+  .contact-item .number {
+    font-size: 1.1rem; /* Keep numbers bold and easy to read/tap */
+  }
+}
+
 /* Circular glowing button style */
 .social-glow-icon {
   position: relative;

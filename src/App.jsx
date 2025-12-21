@@ -79,6 +79,27 @@ function Home() {
             />
           </a>
         </div>
+        <div className="contact-overlay-container">
+        <div className="contacts-overlay-card">
+            <p className="contacts-label">EVENT COORDINATORS</p>
+            <div className="contacts-list">
+              <a href="tel:9886980171" className="contact-item">
+                <span className="name">Shivesh:</span> <span className="number">98869 80171</span>
+              </a>
+              <a href="tel:8310840355" className="contact-item">
+                <span className="name">Darshan G:</span> <span className="number">831-0840355</span>  
+              </a>
+              <a href="tel:8431467547" className="contact-item">
+                <span className="name">Amith</span> <span className="number">8431467547</span>
+              </a>
+              <a href="tel:7090891467" className="contact-item">
+                <span className="name">Darshan</span> <span className="number">7090891467</span>
+              </a>
+
+
+            </div>
+          </div>
+        </div>
       </section>
 
       <footer className="simple-footer">
