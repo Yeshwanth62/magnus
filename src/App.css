@@ -284,31 +284,45 @@ body {
   color: #ff6600;
 }
 
+/* --- UPDATED MOBILE ALIGNMENTS --- */
 @media (max-width: 480px) {
   .contact-overlay-container {
-    left: 50%; /* Center it perfectly on mobile */
-    bottom: 25%; /* Lift it slightly to avoid overlap with bottom edges */
-    width: 75%; /* Use more screen width on small devices */
+    /* Reset left and transform to ensure perfect centering */
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    
+    /* Adjust this percentage to move the card up or down on the poster */
+    top: 65% !important; 
+    bottom: auto !important;
+    
+    width: 85%;
+    max-width: 320px;
+    margin: 0 auto;
   }
 
   .contacts-overlay-card {
-    padding: 10px; /* Reduce padding to save vertical space */
-    min-width: unset; /* Allow card to shrink if screen is very narrow */
-    width: 80%;
+    padding: 15px 10px;
+    min-width: unset; 
+    width: 100%;
+    /* Ensures the glass card doesn't look too bulky on small screens */
+    background: rgba(0, 0, 0, 0.75); 
   }
 
   .contacts-label {
-    font-size: 0.65rem; /* Slightly smaller label */
+    font-size: 0.65rem;
     margin-bottom: 8px;
   }
 
   .contact-item {
-    font-size: 1rem; /* Adjust font for better mobile fit */
-    flex-wrap: wrap; /* Allows number to wrap if names are long */
+    font-size: 0.95rem;
+    flex-direction: row; /* Keeps Name and Number on the same line */
+    justify-content: center;
+    gap: 5px;
   }
 
   .contact-item .number {
-    font-size: 1.1rem; /* Keep numbers bold and easy to read/tap */
+    font-size: 1rem;
+    letter-spacing: 0.5px;
   }
 }
 
