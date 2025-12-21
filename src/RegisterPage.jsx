@@ -54,14 +54,11 @@ const events = [
   ]},
 ];
 
-<p>Click on the events to select them.</p>
-
-
 export default function RegisterPage() {
   const navigate = useNavigate();
   const [openId, setOpenId] = useState(null);
   const [cart, setCart] = useState([]);
-  const [processingId, setProcessingId] = useState(null);
+  const [processing, setProcessing] = useState(false);
   const [alert, setAlert] = useState(null);
 
   const emberIcons = ["🏀", "⚽", "🎸", "🎤", "🧪", "🎨", "🎭", "🏸", "📖", "🩺"];
@@ -81,28 +78,22 @@ export default function RegisterPage() {
     }
   };
 
-  // --- UPDATED NAVIGATION LOGIC ---
-  const handlePayNow = (categoryId) => {
-    const eventCategory = events.find((e) => e.id === categoryId);
-    const itemsInCat = cart.filter((item) => item.categoryId === categoryId);
-    const subtotal = itemsInCat.reduce((s, i) => s + i.fee, 0);
+  const grandTotal = cart.reduce((sum, item) => sum + item.fee, 0);
 
-    setProcessingId(categoryId);
-
+  const handleCheckout = () => {
+    if (cart.length === 0) return;
+    setProcessing(true);
     setTimeout(() => {
-      // Navigates to the form and passes the event name and total price via State
-      navigate(`/form/${categoryId}`, { 
+      navigate(`/form/all-access`, { 
         state: { 
-          eventTitle: eventCategory.main, 
-          totalPrice: subtotal,
-          selectedItems: itemsInCat.map(i => i.name)
+          eventTitle: "MAGNUS 2.0 REGISTRATION", 
+          totalPrice: grandTotal,
+          selectedItems: cart 
         } 
       });
-      setProcessingId(null);
+      setProcessing(false);
     }, 1000);
   };
-
-  const grandTotal = cart.reduce((sum, item) => sum + item.fee, 0);
 
   return (
     <div className="register-container">
@@ -124,13 +115,12 @@ export default function RegisterPage() {
       </div>
 
       <button className="back-btn" onClick={() => navigate("/")}>← BACK</button>
-
       {alert && <div className="toast-alert">{alert}</div>}
-
-      {processingId && (
+      
+      {processing && (
         <div className="payment-overlay">
           <div className="spinner"></div>
-          <p>PREPARING FORM FOR {events.find(e => e.id === processingId)?.main}...</p>
+          <p>PREPARING YOUR REGISTRATION...</p>
         </div>
       )}
 
@@ -139,51 +129,48 @@ export default function RegisterPage() {
         <div className="title-underline"></div>
       </header>
 
+      {/* UPDATED INSTRUCTIONS SECTION */}
       <section style={{ width: '100%', maxWidth: '900px', margin: '40px auto', padding: '0 20px', boxSizing: 'border-box' }}>
-  <div className="description-card-glass" style={{ textAlign: 'left', display: 'block', padding: '30px' }}>
-    <h3 style={{ color: '#ff6600', marginBottom: '25px', textAlign: 'left', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '12px', fontSize: '1.4rem' }}>
-      INSTRUCTIONS FOR REGISTRATION
-    </h3>
-    
-    {/* Use a Column Flexbox to stack the rows */}
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'flex-start' }}>
-      
-      {[
-        { num: 1, title: "Select Events:", text: "Choose your preferred events from the categories below. You can select multiple events across different categories." },
-        { num: 2, title: "Review Basket:", text: "Check your active baskets on the right (or bottom on mobile) to see your total fees." },
-        { num: 3, title: "Payment:", text: "Click \"Pay Now\" for a category. Each category has a specific QR code. Please ensure you scan the correct one." },
-        { num: 4, title: "Verification:", text: "After payment, enter your 12-digit UTR/Transaction ID and upload a screenshot of the successful payment." },
-        { num: 5, title: "Confirmation:", text: "Once submitted, our team will verify your transaction against the UTR provided and confirm your slot." }
-      ].map((item) => (
-        <div key={item.num} style={{ display: 'grid', gridTemplateColumns: '30px 1fr', gap: '15px', width: '100%', alignItems: 'start' }}>
-          <div className="number-circle" style={{ 
-            background: '#ff6600', color: '#000', width: '26px', height: '26px', 
-            borderRadius: '50%', display: 'flex', alignItems: 'center', 
-            justifyContent: 'center', fontWeight: 'bold', fontSize: '0.9rem', marginTop: '3px' 
-          }}>
-            {item.num}
+        <div className="description-card-glass" style={{ textAlign: 'left', display: 'block', padding: '30px' }}>
+          <h3 style={{ color: '#ff6600', marginBottom: '25px', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '12px', fontSize: '1.4rem' }}>
+            REGISTRATION INSTRUCTIONS
+          </h3>
+          
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'flex-start' }}>
+            {[
+              { num: 1, title: "Pick Your Events:", text: "Open the categories below and click on any event to add it to your basket. You can choose as many as you like." },
+              { num: 2, title: "Review Total:", text: "Check 'YOUR BASKET' on the right. It automatically calculates the combined fee for all your selections." },
+              { num: 3, title: "Unified Payment:", text: "Click 'CHECKOUT & PAY'. You only need to make ONE payment for all selected events using the QR code on the next page." },
+              { num: 4, title: "Enter Details:", text: "Fill in your personal info and provide the 12-digit UTR/Transaction ID from your payment app." },
+              { num: 5, title: "Get Your Ticket:", text: "Once you submit, an All-Access ticket will be generated listing every event you registered for. Save it as a PDF." }
+            ].map((item) => (
+              <div key={item.num} style={{ display: 'grid', gridTemplateColumns: '30px 1fr', gap: '15px', width: '100%', alignItems: 'start' }}>
+                <div className="number-circle" style={{ 
+                  background: '#ff6600', color: '#000', width: '26px', height: '26px', 
+                  borderRadius: '50%', display: 'flex', alignItems: 'center', 
+                  justifyContent: 'center', fontWeight: 'bold', fontSize: '0.9rem', marginTop: '3px' 
+                }}>
+                  {item.num}
+                </div>
+                <p style={{ margin: 0, textAlign: 'left', color: 'rgba(255,255,255,0.9)', lineHeight: '1.5', fontSize: '1rem' }}>
+                  <strong style={{ color: '#fff' }}>{item.title}</strong> {item.text}
+                </p>
+              </div>
+            ))}
           </div>
-          <p style={{ margin: 0, textAlign: 'left', color: 'rgba(255,255,255,0.9)', lineHeight: '1.5', fontSize: '1rem' }}>
-            <strong>{item.title}</strong> {item.text}
-          </p>
+
+          <div className="warning-note-banner" style={{ 
+            display: 'flex', alignItems: 'center', justifyContent: 'flex-start', 
+            gap: '15px', marginTop: '35px', background: 'rgba(255, 170, 0, 0.1)', 
+            borderLeft: '4px solid #ffaa00', padding: '15px', borderRadius: '4px' 
+          }}>
+            <span style={{ fontSize: '1.2rem' }}>⚠️</span>
+            <p style={{ margin: 0, textAlign: 'left', color: '#ffaa00', fontWeight: '500', fontSize: '0.9rem' }}>
+              Important: Ensure the total amount paid matches the Grand Total in your basket before submitting.
+            </p>
+          </div>
         </div>
-      ))}
-
-    </div>
-
-    {/* FIXED NOTE ALIGNMENT */}
-    <div className="warning-note-banner" style={{ 
-      display: 'flex', alignItems: 'center', justifyContent: 'flex-start', 
-      gap: '15px', marginTop: '35px', background: 'rgba(255, 170, 0, 0.1)', 
-      borderLeft: '4px solid #ffaa00', padding: '15px', borderRadius: '4px' 
-    }}>
-      <span style={{ fontSize: '1.2rem' }}>⚠️</span>
-      <p style={{ margin: 0, textAlign: 'left', color: '#ffaa00', fontWeight: '500', fontSize: '0.95rem' }}>
-        Note: Keep the payment screenshot safe until the event date for physical verification if required.
-      </p>
-    </div>
-  </div>
-</section>
+      </section>
 
       <div className="main-grid">
         <section className="events-column">
@@ -225,44 +212,37 @@ export default function RegisterPage() {
           </div>
         </section>
 
-        <aside className="baskets-column" id="cart-view">
-          <h3 className="sidebar-label">ACTIVE BASKETS</h3>
+        <aside className="baskets-column">
+          <h3 className="sidebar-label">YOUR BASKET</h3>
           <div className="baskets-wrapper">
-            {events.map((cat) => {
-              const itemsInCat = cart.filter((item) => item.categoryId === cat.id);
-              if (itemsInCat.length === 0) return null;
-              const subtotal = itemsInCat.reduce((s, i) => s + i.fee, 0);
-
-              return (
-                <div key={cat.id} className="basket-card">
-                  <div className="basket-header">{cat.main}</div>
-                  <div className="basket-items">
-                    {itemsInCat.map((item, idx) => (
-                      <div key={idx} className="basket-row">
+            {cart.length > 0 ? (
+              <div className="basket-card">
+                <div className="basket-header">SELECTED EVENTS</div>
+                <div className="basket-items">
+                  {cart.map((item, idx) => (
+                    <div key={idx} className="basket-row">
+                      <div style={{display: 'flex', flexDirection: 'column'}}>
                         <span>{item.name}</span>
-                        <span>₹{item.fee}</span>
+                        <small style={{fontSize: '0.7rem', color: '#ff6600', textTransform: 'uppercase'}}>{item.categoryName}</small>
                       </div>
-                    ))}
-                  </div>
-                  <div className="basket-footer">
-                    <div className="subtotal">Total: ₹{subtotal}</div>
-                    <button className="pay-btn" onClick={() => handlePayNow(cat.id)}>PAY NOW</button>
-                  </div>
+                      <span>₹{item.fee}</span>
+                    </div>
+                  ))}
                 </div>
-              );
-            })}
-            {cart.length === 0 && <div className="empty-basket-text">Baskets are currently empty.
-            </div>}
-          </div>
-
-          {cart.length > 0 && (
-            <div className="grand-total-section">
-              <div className="total-line">
-                <span>GRAND TOTAL</span>
-                <span className="orange-text">₹{grandTotal}</span>
+                <div className="grand-total-section">
+                   <div className="total-line">
+                     <span>GRAND TOTAL</span>
+                     <span className="orange-text">₹{grandTotal}</span>
+                   </div>
+                   <button className="pay-btn" onClick={handleCheckout} style={{width: '100%', marginTop: '15px'}}>
+                     CHECKOUT & PAY
+                   </button>
+                </div>
               </div>
-            </div>
-          )}
+            ) : (
+              <div className="empty-basket-text">Baskets are currently empty.</div>
+            )}
+          </div>
         </aside>
       </div>
     </div>
