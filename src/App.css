@@ -284,45 +284,63 @@ body {
   color: #ff6600;
 }
 
-/* --- UPDATED MOBILE ALIGNMENTS --- */
+/* --- MOBILE ALIGNMENTS (TEXT ONLY) --- */
 @media (max-width: 480px) {
   .contact-overlay-container {
-    /* Reset left and transform to ensure perfect centering */
+    /* Center horizontally */
     left: 50% !important;
     transform: translateX(-50%) !important;
     
-    /* Adjust this percentage to move the card up or down on the poster */
-    top: 69% !important; 
+    /* Position vertically over the poster text area */
+    top: 62% !important; 
     bottom: auto !important;
     
-    width: 85%;
-    max-width: 320px;
-    margin: 0 auto;
+    width: 90%;
+    max-width: 350px;
+    z-index: 20;
   }
 
   .contacts-overlay-card {
-    padding: 10px 10px;
-    min-width: unset; 
-    width: 800%;
-    /* Ensures the glass card doesn't look too bulky on small screens */
-    background: rgba(0, 0, 0, 0.75); 
+    /* REMOVE THE GLASS CONTAINER */
+    background: none !important;
+    backdrop-filter: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    
+    padding: 0 !important;
+    width: 100%;
   }
 
   .contacts-label {
-    font-size: 0.65rem;
-    margin-bottom: 8px;
+    /* Make label slightly smaller and cleaner */
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    color: #ff6600; /* Contrast against the orange background */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5); /* Adds readability */
+  }
+
+  .contacts-list {
+    gap: 12px; /* Add space between names */
   }
 
   .contact-item {
-    font-size: 0.95rem;
-    flex-direction: row; /* Keeps Name and Number on the same line */
+    font-size: 1.1rem;
+    flex-direction: row;
     justify-content: center;
-    gap: 5px;
+    gap: 10px;
+  }
+
+  .contact-item .name {
+    /* Make the name dark or white based on poster contrast */
+    color: rgba(0, 0, 0, 0.8); 
+    font-weight: 500;
   }
 
   .contact-item .number {
-    font-size: 1rem;
-    letter-spacing: 0.5px;
+    color: #000000; /* Solid black for clear readability */
+    font-weight: 700;
+    text-decoration: underline; /* Shows it is a clickable link */
   }
 }
 
