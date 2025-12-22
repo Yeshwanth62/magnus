@@ -224,3 +224,44 @@ html, body {
   color: #ffaa00;
   font-size: 0.95rem;
 }
+
+/* Specific fix for mobile view to ensure bottom items like Table Tennis (W) are visible */
+@media (max-width: 768px) {
+  /* 1. Ensure the container allows the full height of the list to expand */
+  .main-grid {
+    display: flex;
+    flex-direction: column;
+    height: auto !important;
+  }
+
+  /* 2. Add extra padding to the bottom of the dropdown so items aren't cut off */
+  .dropdown-content.visible {
+    max-height: none !important; /* Prevents CSS from capping the list height */
+    padding-bottom: 40px !important; 
+    overflow-y: visible !important;
+  }
+
+  /* 3. Ensure the last card in the grid is fully visible */
+  .item-grid {
+    padding-bottom: 20px;
+  }
+
+  /* 4. Fix for the arts-sports category specifically if it's too long */
+  #arts-sports .item-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr; /* Ensures cards stay side-by-side or stacked properly */
+    gap: 10px;
+  }
+}
+
+/* Extra safety for very small screens */
+@media (max-width: 480px) {
+  .event-card {
+    min-height: 60px; /* Ensures enough touch area */
+  }
+  
+  /* Adds a 'buffer' at the very bottom of the page */
+  .register-container {
+    padding-bottom: 100px; 
+  }
+}

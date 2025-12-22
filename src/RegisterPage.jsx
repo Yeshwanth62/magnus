@@ -31,6 +31,7 @@ const events = [
   ]},
   { id: "scientific", main: "SCIENTIFIC EVENTS", sub: [
     { name: "Research Presentation", fee: 0 },
+    { name: "Net Quiz", fee: 300 },
     { name: "Case chronicles", fee: 200 },
     { name: "Pre clinical Quiz", fee: 200 },
     { name: "Diagnostic Blueprint", fee: 200 },
@@ -42,7 +43,6 @@ const events = [
     { name: "Painting", fee: 100 },
     { name: "Mehendi", fee: 50 },
     { name: "Rangoli", fee: 50 },
-    { name: "Net Quiz", fee: 300 },
     { name: "Improv", fee: 200 },
     { name: "Basketball (M)", fee: 1200 },
     { name: "Basketball (W)", fee: 1200 },
