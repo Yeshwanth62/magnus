@@ -20,6 +20,7 @@ const events = [
   ]},
   { id: "literary", main: "LITERARY EVENTS", sub: [
     { name: "Debate", fee: 200 },
+    { name: "Net Quiz", fee: 300 },
     { name: "Pick and Speak", fee: 100 },
     { name: "Fiction Fusion", fee: 50 },
     { name: "Shipwreck", fee: 100 },
@@ -31,7 +32,6 @@ const events = [
   ]},
   { id: "scientific", main: "SCIENTIFIC EVENTS", sub: [
     { name: "Research Presentation", fee: 0 },
-    { name: "Net Quiz", fee: 300 },
     { name: "Case chronicles", fee: 200 },
     { name: "Pre clinical Quiz", fee: 200 },
     { name: "Diagnostic Blueprint", fee: 200 },
