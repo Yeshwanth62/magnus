@@ -26,19 +26,19 @@ const EventForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // --- ADDED MANUAL VALIDATION LOGIC ---
+    // --- MANUAL VALIDATION LOGIC ---
     const formData = new FormData(e.target);
     const phone = formData.get("Phone");
     const transactionId = formData.get("Transaction_ID");
 
     if (phone.length !== 10) {
       alert("⚠️ Phone Number must be exactly 10 digits.");
-      return; // Stops the function here
+      return; 
     }
 
     if (transactionId.length !== 12) {
       alert("⚠️ Transaction ID / UTR must be exactly 12 digits.");
-      return; // Stops the function here
+      return; 
     }
     // -------------------------------------
 
@@ -46,7 +46,7 @@ const EventForm = () => {
     const eventNames = selectedItems.map(item => item.name).join(", ");
     
     formData.append("Total_Amount", totalPrice);
-    formData.append("Registered_Events", eventNames);
+    formData.append("Event_Category", eventNames);
 
     try {
       const scriptURL = 'https://script.google.com/macros/s/AKfycbyZY1SQv91ud-6SXOg35RNnuyZIB_EDVzeM2ijD25a424PRWGUyXoNELINhkou5cPvc/exec'; 
@@ -100,8 +100,13 @@ const EventForm = () => {
               </div>
 
               <div className="ticket-grid" style={{ marginTop: '10px' }}>
-                <div className="t-item"><span>EMAIL</span><p style={{ textTransform: 'lowercase' }}>{userData.Email}</p></div>
+                <div className="t-item"><span>YEAR</span><p>{userData.Year}</p></div>
                 <div className="t-item"><span>COLLEGE</span><p>{userData.College}</p></div>
+              </div>
+
+              <div className="ticket-grid" style={{ marginTop: '10px' }}>
+                <div className="t-item"><span>EMAIL</span><p style={{ textTransform: 'lowercase' }}>{userData.Email}</p></div>
+                <div className="t-item"><span>PHONE</span><p>{userData.Phone}</p></div>
               </div>
 
               <div className="ticket-event-list-box">
@@ -118,12 +123,10 @@ const EventForm = () => {
 
               <div className="ticket-grid">
                 <div className="t-item"><span>TOTAL PAID</span><p>₹{totalPrice}</p></div>
-                <div className="t-item"><span>PHONE</span><p>{userData.Phone}</p></div>
-              </div>
-
-              <div className="utr-box">
-                <span>TRANSACTION ID / UTR</span>
-                <p className="utr-number">{userData.Transaction_ID}</p>
+                <div className="utr-box" style={{ flex: 1.5 }}>
+                  <span>TRANSACTION ID / UTR</span>
+                  <p className="utr-number">{userData.Transaction_ID}</p>
+                </div>
               </div>
             </div>
 
@@ -166,6 +169,20 @@ const EventForm = () => {
               </div>
 
               <div className="input-group">
+                <label>Year of Study</label>
+                <select name="Year" className="custom-select" required defaultValue="">
+                  <option value="" disabled>Select Year</option>
+                  <option value="1st Year">1st Year</option>
+                  <option value="2nd Year">2nd Year</option>
+                  <option value="3rd Year">3rd Year</option>
+                  <option value="4th Year">4th Year</option>
+                  <option value="5th Year">5th Year</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="grid-inputs">
+              <div className="input-group">
                 <label>Phone Number</label>
                 <input 
                   type="tel" 
@@ -176,11 +193,11 @@ const EventForm = () => {
                   onInput={(e) => e.target.value = e.target.value.replace(/[^0-9]/g, '')}
                 />
               </div>
-            </div>
 
-            <div className="input-group">
-              <label>Email Address</label>
-              <input type="email" name="Email" placeholder="Enter your email id" required />
+              <div className="input-group">
+                <label>Email Address</label>
+                <input type="email" name="Email" placeholder="Enter your email id" required />
+              </div>
             </div>
 
             <div className="input-group">
