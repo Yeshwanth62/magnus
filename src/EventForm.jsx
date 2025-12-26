@@ -49,7 +49,7 @@ const EventForm = () => {
     formData.append("Registered_Events", eventNames);
 
     try {
-      const scriptURL = 'https://script.google.com/macros/s/AKfycbzHs_ubhi9NhLNQz4NnUfEzUSEFwoF2ZuE0gEsoMZYZd8crdarmH4HjXKQ3qXajHjoG/exec'; 
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbyZY1SQv91ud-6SXOg35RNnuyZIB_EDVzeM2ijD25a424PRWGUyXoNELINhkou5cPvc/exec'; 
       await fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' });
       
       setUserData(Object.fromEntries(formData.entries()));
