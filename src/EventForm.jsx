@@ -8,7 +8,6 @@ const EventForm = () => {
   const navigate = useNavigate();
   
   const [loading, setLoading] = useState(false);
-  // fileName state removed as screenshot is removed
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [userData, setUserData] = useState(null);
 
@@ -24,20 +23,33 @@ const EventForm = () => {
 
   const MAIN_QR = "/qr-main.png"; 
 
-  // handleFileChange removed as screenshot is removed
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-
+    
+    // --- ADDED MANUAL VALIDATION LOGIC ---
     const formData = new FormData(e.target);
+    const phone = formData.get("Phone");
+    const transactionId = formData.get("Transaction_ID");
+
+    if (phone.length !== 10) {
+      alert("⚠️ Phone Number must be exactly 10 digits.");
+      return; // Stops the function here
+    }
+
+    if (transactionId.length !== 12) {
+      alert("⚠️ Transaction ID / UTR must be exactly 12 digits.");
+      return; // Stops the function here
+    }
+    // -------------------------------------
+
+    setLoading(true);
     const eventNames = selectedItems.map(item => item.name).join(", ");
     
     formData.append("Total_Amount", totalPrice);
     formData.append("Registered_Events", eventNames);
 
     try {
-      const scriptURL = 'https://script.google.com/macros/s/AKfycbwg0QzyrSfAsKJ3N8PqZy2OvTYy9fWu04z6QYjxyKZ2ogUwLC83DGmXogvIcjFqAzsC/exec'; 
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbzHs_ubhi9NhLNQz4NnUfEzUSEFwoF2ZuE0gEsoMZYZd8crdarmH4HjXKQ3qXajHjoG/exec'; 
       await fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' });
       
       setUserData(Object.fromEntries(formData.entries()));
@@ -87,7 +99,6 @@ const EventForm = () => {
                 <div className="t-item"><span>REG NO.</span><p>{userData.Reg_No}</p></div>
               </div>
 
-              {/* Added Email to Ticket View */}
               <div className="ticket-grid" style={{ marginTop: '10px' }}>
                 <div className="t-item"><span>EMAIL</span><p style={{ textTransform: 'lowercase' }}>{userData.Email}</p></div>
                 <div className="t-item"><span>COLLEGE</span><p>{userData.College}</p></div>
@@ -153,13 +164,20 @@ const EventForm = () => {
                 <label>Register Number</label>
                 <input type="text" name="Reg_No" placeholder="College ID/Reg No" required />
               </div>
+
               <div className="input-group">
                 <label>Phone Number</label>
-                <input type="tel" name="Phone" placeholder="10-digit mobile" required />
+                <input 
+                  type="tel" 
+                  name="Phone" 
+                  placeholder="10-digit mobile" 
+                  required 
+                  maxLength="10"
+                  onInput={(e) => e.target.value = e.target.value.replace(/[^0-9]/g, '')}
+                />
               </div>
             </div>
 
-            {/* Added Email Input Field */}
             <div className="input-group">
               <label>Email Address</label>
               <input type="email" name="Email" placeholder="Enter your email id" required />
@@ -167,7 +185,14 @@ const EventForm = () => {
 
             <div className="input-group">
               <label>Transaction ID / UTR Number</label>
-              <input type="text" name="Transaction_ID" placeholder="12-digit UTR number" required />
+              <input 
+                type="text" 
+                name="Transaction_ID" 
+                placeholder="12-digit UTR number" 
+                required 
+                maxLength="12"
+                onInput={(e) => e.target.value = e.target.value.replace(/[^0-9]/g, '')}
+              />
             </div>
 
             <div className="payment-box-glass">
@@ -180,8 +205,6 @@ const EventForm = () => {
                 <div className="qr-wrapper">
                   <img src={MAIN_QR} alt="Payment QR" className="payment-qr-img" />
                 </div>
-                
-                {/* Upload-wrapper removed as requested */}
               </div>
             </div>
 
