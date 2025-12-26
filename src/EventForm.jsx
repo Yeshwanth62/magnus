@@ -8,17 +8,14 @@ const EventForm = () => {
   const navigate = useNavigate();
   
   const [loading, setLoading] = useState(false);
-  const [fileName, setFileName] = useState("");
+  // fileName state removed as screenshot is removed
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [userData, setUserData] = useState(null);
 
-  // Consistency: Use the same icons from RegisterPage
   const emberIcons = ["🏀", "⚽", "🎸", "🎤", "🧪", "🎨", "🎭", "🏸", "📖", "🩺"];
   
-  // Get data passed from RegisterPage
   const { totalPrice, selectedItems } = location.state || { totalPrice: 0, selectedItems: [] };
 
-  // Safety check: Redirect if no items are selected
   useEffect(() => {
     if (!selectedItems || selectedItems.length === 0) {
       navigate('/register');
@@ -27,11 +24,7 @@ const EventForm = () => {
 
   const MAIN_QR = "/qr-main.png"; 
 
-  const handleFileChange = (e) => {
-    if (e.target.files.length > 0) {
-      setFileName(e.target.files[0].name);
-    }
-  };
+  // handleFileChange removed as screenshot is removed
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -58,7 +51,6 @@ const EventForm = () => {
     }
   };
 
-  // Reusable Background Component
   const FireBackground = () => (
     <div className="fire-background">
       <div className="fire-aura"></div>
@@ -77,7 +69,6 @@ const EventForm = () => {
     </div>
   );
 
-  // --- TICKET VIEW (AFTER SUCCESSFUL SUBMISSION) ---
   if (isSubmitted && userData) {
     return (
       <div className="register-container form-page-layout">
@@ -86,13 +77,20 @@ const EventForm = () => {
           <div className="ticket-card">
             <div className="ticket-header">
               <h2 className="form-title highlight">REGISTRATION CONFIRMED</h2>
-              <div className="ticket-badge">MAGNUS 2.0 ENTRY PASS</div>
+              <div className="ticket-badge">Acknowledgement 
+               (Entry pass will be sent via WhatsApp)</div>
             </div>
 
             <div className="ticket-body">
               <div className="ticket-grid">
                 <div className="t-item"><span>NAME</span><p>{userData.Full_Name}</p></div>
                 <div className="t-item"><span>REG NO.</span><p>{userData.Reg_No}</p></div>
+              </div>
+
+              {/* Added Email to Ticket View */}
+              <div className="ticket-grid" style={{ marginTop: '10px' }}>
+                <div className="t-item"><span>EMAIL</span><p style={{ textTransform: 'lowercase' }}>{userData.Email}</p></div>
+                <div className="t-item"><span>COLLEGE</span><p>{userData.College}</p></div>
               </div>
 
               <div className="ticket-event-list-box">
@@ -108,8 +106,8 @@ const EventForm = () => {
               </div>
 
               <div className="ticket-grid">
-                <div className="t-item"><span>COLLEGE</span><p>{userData.College}</p></div>
                 <div className="t-item"><span>TOTAL PAID</span><p>₹{totalPrice}</p></div>
+                <div className="t-item"><span>PHONE</span><p>{userData.Phone}</p></div>
               </div>
 
               <div className="utr-box">
@@ -118,7 +116,6 @@ const EventForm = () => {
               </div>
             </div>
 
-            {/* SPACED ACTION SECTION */}
             <div className="ticket-footer ticket-btns" style={{ marginTop: '40px' }}>
               <div className="ticket-action-btns" style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
                 <button className="final-submit-btn" onClick={() => window.print()}>SAVE AS PDF</button>
@@ -131,7 +128,6 @@ const EventForm = () => {
     );
   }
 
-  // --- REGISTRATION FORM VIEW ---
   return (
     <div className="register-container form-page-layout">
       <FireBackground />
@@ -163,6 +159,12 @@ const EventForm = () => {
               </div>
             </div>
 
+            {/* Added Email Input Field */}
+            <div className="input-group">
+              <label>Email Address</label>
+              <input type="email" name="Email" placeholder="Enter your email id" required />
+            </div>
+
             <div className="input-group">
               <label>Transaction ID / UTR Number</label>
               <input type="text" name="Transaction_ID" placeholder="12-digit UTR number" required />
@@ -175,38 +177,11 @@ const EventForm = () => {
               </div>
               
               <div className="qr-section">
-                {/* QR WRAPPER RESTORED HERE */}
                 <div className="qr-wrapper">
                   <img src={MAIN_QR} alt="Payment QR" className="payment-qr-img" />
                 </div>
                 
-                <div className="upload-wrapper">
-                  <label 
-                    htmlFor="screenshot" 
-                    className={`custom-file-upload ${fileName ? 'upload-success' : ''}`}
-                  >
-                    {fileName ? (
-                      <>
-                        <span className="success-icon">✓</span> 
-                        {fileName.length > 20 ? fileName.substring(0, 20) + "..." : fileName}
-                      </>
-                    ) : (
-                      "Upload Payment Screenshot"
-                    )}
-                  </label>
-                  <input 
-                    type="file" 
-                    id="screenshot" 
-                    name="Screenshot" 
-                    accept="image/*" 
-                    hidden 
-                    required 
-                    onChange={handleFileChange} 
-                  />
-                  {fileName && (
-                    <p className="file-ready-text">Screenshot attached successfully!</p>
-                  )}
-                </div>
+                {/* Upload-wrapper removed as requested */}
               </div>
             </div>
 

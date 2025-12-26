@@ -5,44 +5,53 @@ import './RegisterPage.css';
 
 const events = [
   { id: "cultural", main: "CULTURAL EVENTS", sub: [
-    { name: "Solo dance classical", fee: 100 },
-    { name: "Solo dance non-classical", fee: 100 },
-    { name: "Duet dance", fee: 200 },
-    { name: "Trio dance", fee: 300 },
-    { name: "Reflections", fee: 200 },
-    { name: "Face off", fee: 100 },
-    { name: "Group dance", fee: 800 },
-    { name: "Solo singing classical", fee: 100 },
-    { name: "Solo singing non-classical", fee: 100 },
-    { name: "Duet singing", fee: 100 },
-    { name: "Fashion Show", fee: 800 },
-    { name: "Reel making competition", fee: 50 },
+    { name: "Solo dance classical ", fee: 100 },
+    { name: "Solo dance non-classical ", fee: 100 },
+    { name: "Duet dance ", fee: 200 },
+    { name: "Trio dance ", fee: 300 },
+    { name: "Reflections ", fee: 200 },
+    { name: "Face off ", fee: 100 },
+    { name: "Group dance ", fee: 800 },
+    { name: "Solo singing classical ", fee: 100 },
+    { name: "Solo singing non-classical ", fee: 100 },
+    { name: "Duet singing ", fee: 100 },
+    { name: "Fashion Show ", fee: 800 },
+    { name: "Reel making competition ", fee: 50 },
+    { name: "Mono Acting ", fee: 100 },
   ]},
   { id: "literary", main: "LITERARY EVENTS", sub: [
-    { name: "Debate", fee: 200 },
-    { name: "Net Quiz", fee: 300 },
-    { name: "Pick and Speak", fee: 100 },
-    { name: "Fiction Fusion", fee: 50 },
-    { name: "Shipwreck", fee: 100 },
-    { name: "Spell Bee", fee: 100 },
-    { name: "Word Building", fee: 100 },
-    { name: "Handwriting", fee: 50 },
-    { name: "Poetry", fee: 100 },
-    { name: "Love Letter Writing", fee: 50 },
+    { name: "Ultimate Litpass ", fee: 900 },
+    { name: "Litpass(English events) ", fee: 600 },
+    { name: "Litpass(Kannada events) ", fee: 350 },
+    { name: "Net Quiz ", fee: 200 },
+    { name: "Rasamanjari ", fee: 150 },
+    { name: "Debate ", fee: 200 },
+    { name: "Debate(Kannada) ", fee: 200 },
+    { name: "Fiction Fusion ", fee: 50 },
+    { name: "Fiction Fusion(Kannada) ", fee: 50 },
+    { name: "Pick and Speak ", fee: 100 },
+    { name: "Pick and Speak(Kannada) ", fee: 100 },
+    { name: "Handwriting ", fee: 50 },
+    { name: "Handwriting(Kannada) ", fee: 50 },
+    { name: "Love Letter Writing ", fee: 50 },
+    { name: "Love Letter Writing(Kannada) ", fee: 50 },
+    { name: "Shipwreck ", fee: 100 },
+    { name: "Spell Bee ", fee: 100 },
+    { name: "Word Building ", fee: 100 },
+    { name: "Poetry ", fee: 100 },
   ]},
   { id: "scientific", main: "SCIENTIFIC EVENTS", sub: [
-    { name: "Research Presentation", fee: 0 },
-    { name: "Case chronicles", fee: 200 },
-    { name: "Pre clinical Quiz", fee: 200 },
-    { name: "Diagnostic Blueprint", fee: 200 },
-    { name: "Murder Mystery", fee: 200 },
-    { name: "Dumb Charades", fee: 150 },
-    { name: "Shark Tank", fee: 150 },
+    { name: "Research Presentation(on spot registration) ", fee: 0 },
+    { name: "Case chronicles ", fee: 200 },
+    { name: "Pre clinical Quiz ", fee: 200 },
+    { name: "Diagnostic Blueprint ", fee: 200 },
+    { name: "Murder Mystery ", fee: 200 },
+    { name: "Dumb Charades ", fee: 150 },
+    { name: "Shark Tank ", fee: 150 },
   ]},
   { id: "arts-sports", main: "ARTS & SPORTS", sub: [
     { name: "Painting", fee: 100 },
-    { name: "Mehendi", fee: 50 },
-    { name: "Rangoli", fee: 50 },
+    { name: "Photography", fee: 100 },
     { name: "Improv", fee: 150 },
     { name: "Basketball (M)", fee: 1200 },
     { name: "Basketball (W)", fee: 1200 },
@@ -76,6 +85,13 @@ export default function RegisterPage() {
   };
 
   const handleToggleItem = (categoryId, categoryName, item) => {
+    // --- EDITED: BLOCK FREE EVENTS FROM CART ---
+    if (item.fee === 0) {
+      setAlert(`${item.name} is a FREE event! No payment required.`);
+      setTimeout(() => setAlert(null), 3000);
+      return; 
+    }
+
     const isPresent = cart.find((c) => c.name === item.name);
     if (isPresent) {
       setCart(cart.filter((c) => c.name !== item.name));
@@ -105,7 +121,6 @@ export default function RegisterPage() {
 
   return (
     <div className="register-container">
-      {/* BACKGROUND ELEMENTS */}
       <div className="fire-background">
         <div className="fire-aura"></div>
         <div className="fire-core"></div>
@@ -137,7 +152,6 @@ export default function RegisterPage() {
         <div className="title-underline"></div>
       </header>
 
-      {/* UPDATED INSTRUCTIONS SECTION */}
       <section style={{ width: '100%', maxWidth: '900px', margin: '40px auto', padding: '0 20px', boxSizing: 'border-box' }}>
         <div className="description-card-glass" style={{ textAlign: 'left', display: 'block', padding: '30px' }}>
           <h3 style={{ color: '#ff6600', marginBottom: '25px', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '12px', fontSize: '1.4rem' }}>
@@ -150,7 +164,8 @@ export default function RegisterPage() {
               { num: 2, title: "Review Total:", text: "Check 'YOUR BASKET' on the right. It automatically calculates the combined fee for all your selections." },
               { num: 3, title: "Unified Payment:", text: "Click 'CHECKOUT & PAY'. You only need to make ONE payment for all selected events using the QR code on the next page." },
               { num: 4, title: "Enter Details:", text: "Fill in your personal info and provide the 12-digit UTR/Transaction ID from your payment app." },
-              { num: 5, title: "Get Your Ticket:", text: "Once you submit, an All-Access ticket will be generated listing every event you registered for. Save it as a PDF." }
+              { num: 5, title: "Acknowledgement:", text: "Once you submit , an acknowledgement form will be generated." },
+              { num: 6, title: "Ticket:", text: "An E ticket of your registration will be sent to you via WhatsApp shortly after your registration." }
             ].map((item) => (
               <div key={item.num} style={{ display: 'grid', gridTemplateColumns: '30px 1fr', gap: '15px', width: '100%', alignItems: 'start' }}>
                 <div className="number-circle" style={{ 
@@ -165,17 +180,6 @@ export default function RegisterPage() {
                 </p>
               </div>
             ))}
-          </div>
-
-          <div className="warning-note-banner" style={{ 
-            display: 'flex', alignItems: 'center', justifyContent: 'flex-start', 
-            gap: '15px', marginTop: '35px', background: 'rgba(255, 170, 0, 0.1)', 
-            borderLeft: '4px solid #ffaa00', padding: '15px', borderRadius: '4px' 
-          }}>
-            <span style={{ fontSize: '1.2rem' }}>⚠️</span>
-            <p style={{ margin: 0, textAlign: 'left', color: '#ffaa00', fontWeight: '500', fontSize: '0.9rem' }}>
-              Important: Ensure the total amount paid matches the Grand Total in your basket before submitting.
-            </p>
           </div>
         </div>
       </section>
@@ -201,14 +205,18 @@ export default function RegisterPage() {
                     <div className="item-grid">
                       {event.sub.map((sub, i) => {
                         const isSelected = cart.some((c) => c.name === sub.name);
+                        // --- EDITED: CHECK IF FREE FOR UI ---
+                        const isFree = sub.fee === 0;
+
                         return (
                           <div
                             key={i}
-                            className={`event-card ${isSelected ? "selected" : ""}`}
+                            className={`event-card ${isSelected ? "selected" : ""} ${isFree ? "free-card" : ""}`}
                             onClick={() => handleToggleItem(event.id, event.main, sub)}
                           >
                             <span className="event-name">{sub.name}</span>
-                            <span className="event-fee">₹{sub.fee}</span>
+                            {/* --- EDITED: DISPLAY "FREE" TEXT --- */}
+                            <span className="event-fee">{isFree ? "FREE" : `₹${sub.fee}`}</span>
                           </div>
                         );
                       })}
