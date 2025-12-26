@@ -58,6 +58,7 @@ const events = [
     { name: "Futsal (M)", fee: 1000 },
     { name: "Badminton (M)", fee: 1000 },
     { name: "Badminton (W)", fee: 1000 },
+    {name: "Chess pass", fee: 500 },
     { name: "Chess (Classic)(M&W)", fee: 300 },
     { name: "Chess (Rapid)(M&W)", fee: 200 },
     { name: "Chess (Blitz)(M&W)", fee: 200 },
