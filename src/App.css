@@ -188,9 +188,9 @@ body {
 @media (max-width: 768px) {
   .register {
     flex-direction: column;
-    width: 75%;
+    width: 70%;
     top: 85%;
-    gap: 5px;
+    gap: 3px;
   }
   .neon-button {
     width: 100%;
@@ -203,7 +203,7 @@ body {
   .poster {
     width: 90%;      /* Ensure it takes full screen width */
     margin: 0;        /* Remove side margins */
-    padding: 0; 
+    padding: 5px; 
     gap: 5px;      /* Remove internal spacing */
   }
 
