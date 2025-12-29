@@ -188,22 +188,23 @@ body {
 @media (max-width: 768px) {
   .register {
     flex-direction: column;
-    width: 85%;
+    width: 75%;
     top: 85%;
     gap: 5px;
   }
   .neon-button {
     width: 100%;
     font-size: 13px;
-    padding: 14px;
+    padding: 10px;
   }
   .fire-core { height: 250px; }
   .poster:hover { transform: translateY(-5px) scale(1.01); }
 
   .poster {
-    width: 100%;      /* Ensure it takes full screen width */
+    width: 90%;      /* Ensure it takes full screen width */
     margin: 0;        /* Remove side margins */
-    padding: 0;       /* Remove internal spacing */
+    padding: 0; 
+    gap: 5px;      /* Remove internal spacing */
   }
 
   /* This controls the actual image */
