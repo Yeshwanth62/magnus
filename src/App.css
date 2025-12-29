@@ -199,6 +199,19 @@ body {
   }
   .fire-core { height: 250px; }
   .poster:hover { transform: translateY(-5px) scale(1.01); }
+
+  .poster {
+    width: 100%;      /* Ensure it takes full screen width */
+    margin: 0;        /* Remove side margins */
+    padding: 0;       /* Remove internal spacing */
+  }
+
+  /* This controls the actual image */
+  .poster img {
+    width: 100vw;     /* Force image to be the exact width of the viewport */
+    height: auto;     /* Maintain aspect ratio */
+    display: block;
+  }
 }
 
 /* Ensure the poster section can contain absolute elements */
