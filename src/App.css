@@ -188,7 +188,7 @@ body {
 @media (max-width: 768px) {
   .register {
     flex-direction: column;
-    width: 70%;
+    width: 72%;
     top: 85%;
     gap: 3px;
   }
