@@ -190,7 +190,7 @@ body {
     flex-direction: column;
     width: 85%;
     top: 85%;
-    gap: 10px;
+    gap: 5px;
   }
   .neon-button {
     width: 100%;
