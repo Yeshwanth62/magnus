@@ -260,6 +260,10 @@ body {
   text-align: center;
 }
 
+
+
+
+
 /* Mobile Fixes */
 @media (max-width: 768px) {
   .icon-overlay-container {
@@ -277,4 +281,6 @@ body {
     object-fit: contain;
     border-radius: 40px;
   }
+
+  
 }

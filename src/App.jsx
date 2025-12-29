@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import RegisterPage from "./RegisterPage";
 import EventForm from "./EventForm";
+import VisitorForm from "./VisitorForm";
 import "./App.css";
 
 function Home() {
@@ -44,6 +45,21 @@ function Home() {
           <button className="neon-button" onClick={() => navigate("/register")}>
             REGISTER NOW
           </button>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <button className="neon-button" onClick={() => navigate("/visitor-pass")}>
+              Visitors pass
+            </button>
+            <p style={{ 
+              color: '#1b1818ff', 
+              fontSize: '10px', 
+              marginTop: '5px', 
+              fontWeight: 'bold', 
+              letterSpacing: '1px' 
+              
+            }}>
+              ONLY FOR NON-PARTICIPANTS
+            </p>
+          </div>
         </section>
       </section>
 
@@ -96,6 +112,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/form/:eventID" element={<EventForm />} />
+        <Route path="/visitor-pass" element={<VisitorForm />} />
       </Routes>
     </Router>
   );

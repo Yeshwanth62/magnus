@@ -40,7 +40,6 @@ const EventForm = () => {
       alert("⚠️ Transaction ID / UTR must be exactly 12 digits.");
       return; 
     }
-    // -------------------------------------
 
     setLoading(true);
     const eventNames = selectedItems.map(item => item.name).join(", ");
@@ -49,7 +48,7 @@ const EventForm = () => {
     formData.append("Event_Category", eventNames);
 
     try {
-      const scriptURL = 'https://script.google.com/macros/s/AKfycbyZY1SQv91ud-6SXOg35RNnuyZIB_EDVzeM2ijD25a424PRWGUyXoNELINhkou5cPvc/exec'; 
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbxjQuiGE5I1pQiwP2XOA8Q3EVC9_jGuX8oPbvNUNfVTppCpTXOboIfX28pLBRJOH8IY/exec'; 
       await fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' });
       
       setUserData(Object.fromEntries(formData.entries()));
